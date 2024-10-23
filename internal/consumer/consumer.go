@@ -30,7 +30,6 @@ func (consumer *Consumer) ConsumeClaim(session sarama.ConsumerGroupSession, clai
 	for message := range claim.Messages() {
 		fmt.Printf("Message claimed: value = %s, timestamp = %v, topic = %s\n", string(message.Value), message.Timestamp, message.Topic)
 
-		// Process the consumed message
 		processedMessage, err := processor.ProcessMessage(message.Value)
 		if err != nil {
 			log.Printf("Error processing message: %v", err)
@@ -42,7 +41,6 @@ func (consumer *Consumer) ConsumeClaim(session sarama.ConsumerGroupSession, clai
 			outTopic = os.Getenv("KAFKA_OUT_TOPIC")
 		)
 
-		// Publish the processed message to debezium-topic
 		err = producer.PublishMessage(brokers, outTopic, processedMessage)
 		if err != nil {
 			log.Printf("Error publishing message: %v", err)
@@ -50,7 +48,6 @@ func (consumer *Consumer) ConsumeClaim(session sarama.ConsumerGroupSession, clai
 			log.Printf("Message successfully published to debezium-topic")
 		}
 
-		// Mark message as processed
 		session.MarkMessage(message, "")
 	}
 	return nil
@@ -59,7 +56,6 @@ func (consumer *Consumer) ConsumeClaim(session sarama.ConsumerGroupSession, clai
 func StartConsumer(ctx context.Context, brokers []string, groupID, topic string) {
 	config := sarama.NewConfig()
 	config.Version = sarama.V2_2_0_0
-	config.Consumer.Group.Rebalance.Strategy = sarama.BalanceStrategyRange
 	config.Consumer.Offsets.Initial = sarama.OffsetOldest
 
 	consumer := &Consumer{}
