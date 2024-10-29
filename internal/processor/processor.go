@@ -202,6 +202,31 @@ type TransactionMessage struct {
 		UseDeposit              bool        `json:"use_deposit"`
 		UseDiscount             bool        `json:"use_discount"`
 		UseDiscountLine         bool        `json:"use_discount_line"`
+		PaymentTransactions     []struct {
+			ID               int         `json:"id"`
+			PaymentID        int         `json:"payment_id"`
+			TransactionID    int         `json:"transaction_id"`
+			Amount           string      `json:"amount"`
+			CreatedAt        time.Time   `json:"created_at"`
+			UpdatedAt        time.Time   `json:"updated_at"`
+			AmountAsCurrency interface{} `json:"amount_as_currency"`
+			McRate           interface{} `json:"mc_rate"`
+			DeletedAt        interface{} `json:"deleted_at"`
+			RealisedGainID   interface{} `json:"realised_gain_id"`
+			Transaction      struct {
+				ID            int    `json:"id"`
+				TransactionNo string `json:"transaction_no"`
+			} `json:"transaction"`
+		} `json:"payment_transactions"`
+		CreateWithMultipleWithholdings bool `json:"create_with_multiple_withholdings"`
+		WithholdingTransactions        []struct {
+			ID              int    `json:"id"`
+			Label           string `json:"label"`
+			WithholdingType string `json:"withholding_type"`
+			Rate            string `json:"rate"`
+			Amount          string `json:"amount"`
+			AccountID       int    `json:"account_id"`
+		} `json:"withholding_transactions"`
 	} `json:"data"`
 	CreatedAt time.Time `json:"created_at"`
 }
