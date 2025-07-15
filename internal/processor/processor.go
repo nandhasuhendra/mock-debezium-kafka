@@ -162,7 +162,25 @@ type TransactionMessage struct {
 		AllocatedUpfrontTaxesAmount int           `json:"allocated_upfront_taxes_amount"`
 		Order                       struct{}      `json:"order"`
 		UpfrontTaxPerAccounts       struct{}      `json:"upfront_tax_per_accounts"`
-		TransactionLines            struct {
+		TransactionAccountLines     struct {
+			Data []struct {
+				ID             int         `json:"id"`
+				TransactionID  int         `json:"transaction_id"`
+				AccountID      int         `json:"account_id"`
+				Description    string      `json:"description"`
+				Credit         string      `json:"credit"`
+				Debit          string      `json:"debit"`
+				Active         interface{} `json:"active"`
+				CreatedAt      time.Time   `json:"created_at"`
+				UpdatedAt      time.Time   `json:"updated_at"`
+				DeletedAt      interface{} `json:"deleted_at"`
+				ExpenseID      interface{} `json:"expense_id"`
+				RealisedGainID interface{} `json:"realised_gain_id"`
+				LineTaxID      interface{} `json:"line_tax_id"`
+				Idx            int         `json:"idx"`
+			} `json:"data"`
+		} `json:"transaction_account_lines"`
+		TransactionLines struct {
 			Data []struct {
 				ID                     int           `json:"id"`
 				TransactionID          int           `json:"transaction_id"`

@@ -23,6 +23,7 @@ func PublishMessage(brokers []string, topic string, message []byte) error {
 		Value: sarama.ByteEncoder(message),
 	}
 
+	log.Printf("Publishing message to topic %s: %s\n", topic, message)
 	partition, offset, err := producer.SendMessage(msg)
 	if err != nil {
 		return err
