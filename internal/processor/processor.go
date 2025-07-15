@@ -105,7 +105,7 @@ type TransactionMessage struct {
 		WebhookEvents               []interface{} `json:"webhook_events"`
 		TransactionStatusName       string        `json:"transaction_status_name"`
 		TransactionStatusNameBahasa string        `json:"transaction_status_name_bahasa"`
-		AtDesc                      []interface{} `json:"at_desc"`
+		AtDesc                      any           `json:"at_desc"`
 		Payments                    []struct {
 			ID                  int       `json:"id"`
 			TransactionTypeID   int       `json:"transaction_type_id"`
@@ -145,7 +145,7 @@ type TransactionMessage struct {
 		} `json:"person_default_ar_account"`
 		HasAttachment               bool          `json:"has_attachment"`
 		CurrencySymbol              string        `json:"currency_symbol"`
-		WitholdingAmount            string        `json:"witholding_amount"`
+		WitholdingAmount            any           `json:"witholding_amount"`
 		TaxDetails                  []interface{} `json:"tax_details"`
 		CurrencyCode                string        `json:"currency_code"`
 		DiscountTypeName            string        `json:"discount_type_name"`
